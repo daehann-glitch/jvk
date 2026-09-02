@@ -1,518 +1,1315 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JVK - 외국인 리크루팅 대행 원스톱 솔루션</title>
-    <style>
-        /* 기본 스타일 초기화 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07111f" />
+  <title>JVK - 외국인 리크루팅 대행 원스톱 솔루션</title>
+  <meta name="description" content="JVK 외국인 리크루팅 대행 원스톱 솔루션. 인재 매칭부터 면접, 출근, 정착 지원까지." />
 
-        body {
-            color: #333;
-            line-height: 1.6;
-            background-color: #f8f9fa;
-        }
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+    :root {
+      --navy-950:#06101d;
+      --navy-900:#0a1628;
+      --navy-800:#102440;
+      --blue-600:#2563eb;
+      --blue-500:#3b82f6;
+      --cyan-400:#22d3ee;
+      --violet-500:#8b5cf6;
+      --orange-500:#f97316;
+      --amber-400:#fbbf24;
+      --slate-950:#0f172a;
+      --slate-700:#334155;
+      --slate-500:#64748b;
+      --slate-300:#cbd5e1;
+      --slate-200:#e2e8f0;
+      --slate-100:#f1f5f9;
+      --white:#ffffff;
+      --shadow: 0 24px 70px rgba(2, 8, 23, .18);
+      --radius-xl:28px;
+      --radius-lg:22px;
+      --radius-md:16px;
+      --transition: .35s cubic-bezier(.2,.8,.2,1);
+    }
 
-        /* 컨테이너 */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    * { box-sizing: border-box; margin:0; padding:0; }
 
-        /* 헤더 */
-        header {
-            background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    html {
+      scroll-behavior:smooth;
+      background:var(--navy-950);
+    }
 
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    body {
+      font-family:'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      color:var(--slate-950);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(59,130,246,.08), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(139,92,246,.06), transparent 32%),
+        #f8fafc;
+      line-height:1.65;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
 
-        /* 로고 영역 */
-        .logo-wrapper {
-            display: flex;
-            flex-direction: column;
-        }
+    a { color:inherit; text-decoration:none; }
+    button { font:inherit; }
 
-        .logo {
-            font-size: 36px;
-            font-weight: 900;
-            color: #0047AB;
-            letter-spacing: 1px;
-            line-height: 1.1;
-        }
+    .container {
+      width:min(1180px, calc(100% - 40px));
+      margin:0 auto;
+    }
 
-        .logo-subtext {
-            font-size: 13px;
-            font-weight: 600;
-            color: #666;
-            letter-spacing: 0.5px;
-            margin-top: 3px;
-        }
-        
-        /* 헤더 우측 링크 버튼 */
-        .header-link a {
-            background-color: #0047AB;
-            color: #ffffff;
-            padding: 10px 24px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .header-link a:hover {
-            background-color: #002355;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+    /* Header */
+    .site-header {
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      z-index:1000;
+      padding:18px 0;
+      transition:var(--transition);
+    }
 
-        /* 히어로 섹션 */
-        .hero {
-            background: linear-gradient(135deg, #0047AB 0%, #002355 100%);
-            color: white;
-            padding: 100px 0 140px; 
-            text-align: center;
-        }
+    .site-header.scrolled {
+      padding:10px 0;
+      background:rgba(6,16,29,.78);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      box-shadow:0 10px 35px rgba(0,0,0,.16);
+    }
 
-        .hero h1 {
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
+    .header-inner {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
 
-        .hero p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:#fff;
+    }
 
-        /* 공통 섹션 스타일 */
-        section {
-            padding: 80px 0;
-        }
+    .brand-mark {
+      width:46px;
+      height:46px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.04)),
+        linear-gradient(135deg, var(--blue-500), var(--violet-500));
+      box-shadow:0 12px 30px rgba(37,99,235,.35);
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:-.5px;
+      transform:rotate(-4deg);
+    }
 
-        section h2 {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 15px;
-            color: #111;
-            position: relative;
-        }
+    .brand-copy strong {
+      display:block;
+      font-size:20px;
+      line-height:1;
+      letter-spacing:-.4px;
+    }
 
-        section h2::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background-color: #0047AB;
-            margin: 15px auto 0;
-        }
+    .brand-copy span {
+      display:block;
+      margin-top:5px;
+      color:rgba(255,255,255,.62);
+      font-size:10px;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+    }
 
-        /* 리크루팅 솔루션 하이라이트 섹션 */
-        .highlight-section {
-            background-color: #ffffff;
-            border-radius: 16px;
-            padding: 50px;
-            margin: -80px auto 40px; 
-            position: relative;
-            z-index: 10;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            max-width: 1160px;
-        }
+    .nav-actions {
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
 
-        .highlight-section h2 {
-            margin-bottom: 5px;
-        }
-        
-        .highlight-section > p.subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 17px;
-            margin-bottom: 40px;
-        }
+    .nav-link {
+      color:rgba(255,255,255,.75);
+      font-size:14px;
+      font-weight:700;
+      transition:var(--transition);
+    }
 
-        /* 체크리스트 및 스텝 UI */
-        .recruiting-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
+    .nav-link:hover { color:#fff; }
 
-        .recruiting-card {
-            background: #f8f9fa;
-            padding: 35px;
-            border-radius: 12px;
-            border-top: 4px solid #0047AB;
-        }
-        
-        .recruiting-card.orange-top {
-            border-top: 4px solid #FFB81C;
-        }
+    .nav-cta {
+      position:relative;
+      overflow:hidden;
+      color:#fff;
+      font-size:14px;
+      font-weight:800;
+      padding:12px 20px;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--orange-500), #fb923c);
+      box-shadow:0 12px 30px rgba(249,115,22,.28);
+      transition:var(--transition);
+    }
 
-        .recruiting-card h3 {
-            font-size: 22px;
-            margin-bottom: 20px;
-            color: #111;
-            display: flex;
-            align-items: center;
-        }
+    .nav-cta::before,
+    .hero-cta.primary::before {
+      content:"";
+      position:absolute;
+      inset:-120% -40%;
+      background:linear-gradient(110deg, transparent 35%, rgba(255,255,255,.35), transparent 65%);
+      transform:translateX(-60%);
+      animation:shine 4.5s linear infinite;
+    }
 
-        .check-list {
-            list-style: none;
-        }
+    .nav-cta:hover { transform:translateY(-2px) scale(1.02); }
 
-        .check-list li {
-            position: relative;
-            padding-left: 28px;
-            margin-bottom: 18px;
-            font-size: 16px;
-            line-height: 1.5;
-            color: #444;
-        }
+    /* Hero */
+    .hero {
+      min-height:820px;
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      color:#fff;
+      background:
+        radial-gradient(circle at 25% 35%, rgba(37,99,235,.35), transparent 28%),
+        radial-gradient(circle at 75% 20%, rgba(139,92,246,.28), transparent 26%),
+        linear-gradient(135deg, #06101d 0%, #0c1f38 45%, #102f59 100%);
+      padding:140px 0 110px;
+    }
 
-        .check-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: #0047AB;
-            font-weight: bold;
-            font-size: 18px;
-        }
+    .hero::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-4;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size:48px 48px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.8), transparent 92%);
+    }
 
-        .check-list li strong {
-            color: #222;
-            display: block;
-            margin-bottom: 4px;
-        }
+    .orb {
+      position:absolute;
+      border-radius:50%;
+      filter:blur(2px);
+      opacity:.9;
+      z-index:-3;
+      animation:float 8s ease-in-out infinite;
+    }
 
-        .step-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+    .orb.one {
+      width:240px;height:240px;
+      right:8%; top:12%;
+      background:radial-gradient(circle at 35% 35%, #38bdf8, #2563eb 60%, transparent 61%);
+      box-shadow:0 0 80px rgba(56,189,248,.2);
+    }
 
-        .step-item {
-            display: flex;
-            align-items: center;
-            background: #fff;
-            padding: 12px 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            border-left: 4px solid #FFB81C;
-        }
+    .orb.two {
+      width:130px;height:130px;
+      right:22%; bottom:14%;
+      background:linear-gradient(145deg, #f97316, #fbbf24);
+      animation-delay:-2s;
+      opacity:.78;
+    }
 
-        .step-badge {
-            background-color: #FFB81C;
-            color: #111;
-            font-weight: bold;
-            font-size: 13px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            margin-right: 15px;
-            white-space: nowrap;
-        }
+    .orb.three {
+      width:88px;height:88px;
+      left:8%; bottom:18%;
+      background:linear-gradient(145deg, #8b5cf6, #22d3ee);
+      animation-delay:-4s;
+      opacity:.68;
+    }
 
-        .step-content {
-            font-size: 15px;
-            font-weight: 600;
-            color: #333;
-        }
+    .hero-glow {
+      position:absolute;
+      width:620px;
+      height:620px;
+      right:-180px;
+      top:100px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:
+        0 0 0 80px rgba(255,255,255,.018),
+        0 0 0 160px rgba(255,255,255,.012),
+        0 0 0 240px rgba(255,255,255,.008);
+      z-index:-2;
+      animation:spinSlow 24s linear infinite;
+    }
 
-        /* 연혁, 실적 및 장점 섹션 (Grid 2) */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-        }
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:72px;
+      align-items:center;
+    }
 
-        .card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      padding:8px 13px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.07);
+      backdrop-filter:blur(10px);
+      color:#dbeafe;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.8px;
+      text-transform:uppercase;
+      margin-bottom:22px;
+    }
 
-        .card h3 {
-            font-size: 22px;
-            margin-bottom: 20px;
-            color: #0047AB;
-        }
+    .eyebrow::before {
+      content:"";
+      width:8px;height:8px;
+      border-radius:50%;
+      background:var(--cyan-400);
+      box-shadow:0 0 18px var(--cyan-400);
+      animation:pulse 2s ease-in-out infinite;
+    }
 
-        .timeline-item, .advantage-item {
-            margin-bottom: 15px;
-            padding-left: 20px;
-            position: relative;
-        }
+    .hero h1 {
+      max-width:780px;
+      font-size:clamp(42px, 6vw, 74px);
+      line-height:1.06;
+      letter-spacing:-2.4px;
+      font-weight:900;
+      word-break:keep-all;
+    }
 
-        .timeline-item::before, .advantage-item::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: #FFB81C;
-            font-weight: bold;
-            font-size: 20px;
-            line-height: 1.4;
-        }
+    .hero h1 .gradient-text {
+      display:block;
+      background:linear-gradient(90deg, #fff 0%, #bfdbfe 35%, #67e8f9 70%, #fde68a 100%);
+      background-size:200% auto;
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      animation:gradientMove 7s ease-in-out infinite;
+    }
 
-        /* 서비스 섹션 (Grid 3) */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
+    .hero-copy > p {
+      max-width:690px;
+      margin-top:24px;
+      color:rgba(226,232,240,.82);
+      font-size:19px;
+      line-height:1.8;
+      word-break:keep-all;
+    }
 
-        .service-card {
-            background: #fff;
-            padding: 40px 30px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-            border-top: 4px solid transparent;
-        }
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:34px;
+    }
 
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-top: 4px solid #0047AB;
-        }
+    .hero-cta {
+      position:relative;
+      overflow:hidden;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      padding:15px 22px;
+      border-radius:14px;
+      font-weight:850;
+      transition:var(--transition);
+    }
 
-        .service-card h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: #111;
-        }
+    .hero-cta.primary {
+      background:linear-gradient(135deg, var(--orange-500), #fb923c);
+      box-shadow:0 18px 36px rgba(249,115,22,.28);
+    }
 
-        .service-card p {
-            color: #666;
-            font-size: 15px;
-        }
+    .hero-cta.secondary {
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.07);
+      backdrop-filter:blur(10px);
+      color:#fff;
+    }
 
-        /* 푸터 */
-        footer {
-            background-color: #222;
-            color: #aaa;
-            padding: 50px 0;
-            font-size: 14px;
-        }
+    .hero-cta:hover { transform:translateY(-3px); }
 
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
+    .hero-panel {
+      position:relative;
+      min-height:430px;
+    }
 
-        .footer-info p {
-            margin-bottom: 8px;
-        }
+    .glass-card {
+      position:absolute;
+      border:1px solid rgba(255,255,255,.13);
+      background:linear-gradient(145deg, rgba(255,255,255,.14), rgba(255,255,255,.055));
+      backdrop-filter:blur(18px);
+      box-shadow:0 24px 60px rgba(0,0,0,.2);
+      border-radius:24px;
+      color:#fff;
+    }
 
-        .footer-info strong {
-            color: #ddd;
-        }
+    .process-card {
+      inset:25px 20px 30px 20px;
+      padding:26px;
+      animation:floatPanel 7s ease-in-out infinite;
+    }
 
-        @media (max-width: 768px) {
-            .grid-2, .recruiting-grid {
-                grid-template-columns: 1fr;
-            }
-            .hero h1 {
-                font-size: 32px;
-            }
-            .highlight-section {
-                margin: -40px 20px 40px;
-                padding: 30px 20px;
-            }
-        }
-    </style>
+    .mini-kicker {
+      color:#93c5fd;
+      font-size:11px;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+      font-weight:900;
+      margin-bottom:8px;
+    }
+
+    .process-card h3 {
+      font-size:24px;
+      letter-spacing:-.6px;
+      margin-bottom:20px;
+    }
+
+    .process-flow {
+      display:grid;
+      gap:12px;
+    }
+
+    .process-row {
+      display:grid;
+      grid-template-columns:42px 1fr auto;
+      gap:12px;
+      align-items:center;
+      padding:14px 15px;
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:14px;
+      background:rgba(255,255,255,.055);
+      transition:var(--transition);
+    }
+
+    .process-row:hover {
+      background:rgba(255,255,255,.09);
+      transform:translateX(5px);
+    }
+
+    .process-num {
+      width:38px;height:38px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(145deg, #1d4ed8, #60a5fa);
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .process-row:nth-child(4) .process-num,
+    .process-row:nth-child(5) .process-num {
+      background:linear-gradient(145deg, #ea580c, #fbbf24);
+    }
+
+    .process-label {
+      font-size:14px;
+      font-weight:800;
+      color:#e2e8f0;
+    }
+
+    .process-arrow {
+      color:rgba(255,255,255,.38);
+      font-size:18px;
+    }
+
+    .floating-badge {
+      position:absolute;
+      right:-8px;
+      top:-8px;
+      padding:12px 16px;
+      border-radius:16px;
+      background:#fff;
+      color:var(--slate-950);
+      box-shadow:0 20px 45px rgba(0,0,0,.22);
+      font-size:12px;
+      font-weight:900;
+      transform:rotate(4deg);
+      animation:badgeBob 4.8s ease-in-out infinite;
+    }
+
+    .floating-badge span {
+      color:var(--orange-500);
+      font-size:18px;
+      margin-right:5px;
+    }
+
+    /* Main sections */
+    section.content-section {
+      padding:100px 0;
+      position:relative;
+    }
+
+    .section-head {
+      max-width:760px;
+      margin:0 auto 46px;
+      text-align:center;
+    }
+
+    .section-kicker {
+      display:inline-block;
+      color:var(--blue-600);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:1.3px;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+
+    .section-head h2 {
+      font-size:clamp(32px, 4.4vw, 48px);
+      line-height:1.15;
+      letter-spacing:-1.5px;
+      font-weight:900;
+      word-break:keep-all;
+    }
+
+    .section-head p {
+      margin-top:15px;
+      color:var(--slate-500);
+      font-size:17px;
+      word-break:keep-all;
+    }
+
+    /* Recruiting */
+    .recruiting-shell {
+      position:relative;
+      margin-top:-72px;
+      z-index:10;
+    }
+
+    .recruiting-wrap {
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(18px);
+      border:1px solid rgba(255,255,255,.8);
+      border-radius:32px;
+      padding:50px;
+      box-shadow:var(--shadow);
+    }
+
+    .recruiting-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+    }
+
+    .feature-card {
+      position:relative;
+      overflow:hidden;
+      padding:32px;
+      border-radius:22px;
+      border:1px solid var(--slate-200);
+      background:
+        linear-gradient(#fff,#fff) padding-box,
+        linear-gradient(145deg, rgba(37,99,235,.55), rgba(139,92,246,.2), rgba(249,115,22,.4)) border-box;
+      transition:var(--transition);
+    }
+
+    .feature-card::after {
+      content:"";
+      position:absolute;
+      width:180px;height:180px;
+      border-radius:50%;
+      right:-90px;top:-90px;
+      background:radial-gradient(circle, rgba(37,99,235,.12), transparent 68%);
+      transition:var(--transition);
+    }
+
+    .feature-card.orange::after {
+      background:radial-gradient(circle, rgba(249,115,22,.13), transparent 68%);
+    }
+
+    .feature-card:hover {
+      transform:translateY(-7px);
+      box-shadow:0 24px 45px rgba(15,23,42,.09);
+    }
+
+    .feature-card h3 {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:-.5px;
+      margin-bottom:22px;
+    }
+
+    .feature-icon {
+      width:42px;height:42px;
+      border-radius:13px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:linear-gradient(145deg, var(--blue-600), var(--cyan-400));
+      box-shadow:0 12px 24px rgba(37,99,235,.18);
+    }
+
+    .orange .feature-icon {
+      background:linear-gradient(145deg, var(--orange-500), var(--amber-400));
+      box-shadow:0 12px 24px rgba(249,115,22,.18);
+    }
+
+    .check-list { list-style:none; display:grid; gap:18px; }
+
+    .check-list li {
+      display:grid;
+      grid-template-columns:30px 1fr;
+      gap:12px;
+      align-items:start;
+      color:var(--slate-500);
+      font-size:14.5px;
+    }
+
+    .check-list .dot {
+      width:28px;height:28px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      color:var(--blue-600);
+      background:#eff6ff;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .check-list strong {
+      display:block;
+      color:var(--slate-950);
+      font-size:16px;
+      margin-bottom:4px;
+    }
+
+    .steps { display:grid; gap:10px; }
+
+    .step-item {
+      display:grid;
+      grid-template-columns:68px 1fr 28px;
+      align-items:center;
+      gap:12px;
+      padding:14px 15px;
+      border-radius:14px;
+      border:1px solid var(--slate-200);
+      background:linear-gradient(90deg, #fff, #fff7ed);
+      transition:var(--transition);
+    }
+
+    .step-item:hover {
+      transform:translateX(5px);
+      border-color:#fdba74;
+      box-shadow:0 10px 22px rgba(249,115,22,.08);
+    }
+
+    .step-badge {
+      text-align:center;
+      color:#c2410c;
+      background:#ffedd5;
+      border-radius:999px;
+      padding:6px 8px;
+      font-size:11px;
+      font-weight:900;
+    }
+
+    .step-content {
+      font-size:14px;
+      font-weight:800;
+      color:var(--slate-700);
+    }
+
+    .step-end { color:#fb923c; font-size:18px; }
+
+    /* Proof / Performance */
+    .performance {
+      background:
+        radial-gradient(circle at 0% 0%, rgba(37,99,235,.11), transparent 26%),
+        radial-gradient(circle at 100% 100%, rgba(139,92,246,.09), transparent 28%),
+        #f1f5f9;
+    }
+
+    .stats-strip {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+      margin-bottom:28px;
+    }
+
+    .stat {
+      position:relative;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid var(--slate-200);
+      border-radius:20px;
+      padding:26px;
+      box-shadow:0 12px 30px rgba(15,23,42,.05);
+      transition:var(--transition);
+    }
+
+    .stat:hover { transform:translateY(-5px); }
+
+    .stat::before {
+      content:"";
+      position:absolute;
+      left:0;top:0;width:100%;height:4px;
+      background:linear-gradient(90deg, var(--blue-600), var(--violet-500), var(--orange-500));
+    }
+
+    .stat .num {
+      display:block;
+      font-size:34px;
+      line-height:1;
+      font-weight:950;
+      letter-spacing:-1.2px;
+      color:var(--slate-950);
+      margin-bottom:9px;
+    }
+
+    .stat .label {
+      color:var(--slate-500);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .proof-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+    }
+
+    .proof-card {
+      background:#fff;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      padding:34px;
+      box-shadow:0 18px 40px rgba(15,23,42,.05);
+    }
+
+    .proof-card h3 {
+      font-size:20px;
+      margin-bottom:22px;
+      font-weight:900;
+      color:var(--navy-800);
+    }
+
+    .proof-list {
+      display:grid;
+      gap:14px;
+    }
+
+    .proof-item {
+      position:relative;
+      padding:15px 16px 15px 46px;
+      border-radius:14px;
+      background:#f8fafc;
+      color:var(--slate-700);
+      font-size:14.5px;
+    }
+
+    .proof-item::before {
+      content:"";
+      position:absolute;
+      left:18px;
+      top:21px;
+      width:10px;height:10px;
+      border-radius:50%;
+      background:linear-gradient(145deg, var(--blue-500), var(--cyan-400));
+      box-shadow:0 0 0 6px rgba(37,99,235,.08);
+    }
+
+    /* Services */
+    .services-grid {
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:16px;
+    }
+
+    .service-card {
+      position:relative;
+      overflow:hidden;
+      min-height:250px;
+      border-radius:22px;
+      padding:26px 22px;
+      color:#fff;
+      background:linear-gradient(160deg, #102440, #0a1628);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 16px 38px rgba(2,8,23,.12);
+      transition:var(--transition);
+    }
+
+    .service-card:nth-child(2) { background:linear-gradient(160deg, #1e3a8a, #0f172a); }
+    .service-card:nth-child(3) { background:linear-gradient(160deg, #3b0764, #111827); }
+    .service-card:nth-child(4) { background:linear-gradient(160deg, #0f766e, #0f172a); }
+    .service-card:nth-child(5) { background:linear-gradient(160deg, #9a3412, #431407); }
+
+    .service-card::before {
+      content:"";
+      position:absolute;
+      width:120px;height:120px;
+      border-radius:50%;
+      right:-40px; top:-40px;
+      background:rgba(255,255,255,.10);
+      filter:blur(2px);
+      transition:var(--transition);
+    }
+
+    .service-card:hover {
+      transform:translateY(-10px) rotate(-.4deg);
+      box-shadow:0 28px 55px rgba(2,8,23,.2);
+    }
+
+    .service-card:hover::before {
+      transform:scale(1.4);
+      background:rgba(255,255,255,.15);
+    }
+
+    .service-index {
+      display:inline-block;
+      color:rgba(255,255,255,.5);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:1px;
+      margin-bottom:44px;
+    }
+
+    .service-card h3 {
+      font-size:20px;
+      line-height:1.25;
+      letter-spacing:-.5px;
+      margin-bottom:12px;
+      font-weight:900;
+    }
+
+    .service-card p {
+      color:rgba(255,255,255,.68);
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    /* CTA */
+    .cta-section {
+      padding:60px 0 110px;
+    }
+
+    .cta-box {
+      position:relative;
+      overflow:hidden;
+      border-radius:32px;
+      padding:58px;
+      color:#fff;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(34,211,238,.2), transparent 26%),
+        radial-gradient(circle at 90% 90%, rgba(249,115,22,.2), transparent 30%),
+        linear-gradient(135deg, #06101d, #102f59);
+      box-shadow:var(--shadow);
+    }
+
+    .cta-box::before {
+      content:"JVK";
+      position:absolute;
+      right:30px;
+      top:-40px;
+      font-size:180px;
+      line-height:1;
+      font-weight:950;
+      color:rgba(255,255,255,.035);
+      letter-spacing:-12px;
+    }
+
+    .cta-box h2 {
+      max-width:700px;
+      font-size:clamp(30px,4.2vw,48px);
+      line-height:1.15;
+      letter-spacing:-1.5px;
+      font-weight:900;
+    }
+
+    .cta-box p {
+      max-width:680px;
+      margin-top:14px;
+      color:rgba(255,255,255,.7);
+      font-size:16px;
+    }
+
+    .cta-box .hero-actions { margin-top:28px; }
+
+    /* Footer */
+    footer {
+      background:#050b14;
+      color:#94a3b8;
+      padding:62px 0 34px;
+      border-top:1px solid rgba(255,255,255,.05);
+    }
+
+    .footer-top {
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:50px;
+      margin-bottom:34px;
+    }
+
+    .footer-brand {
+      color:#fff;
+      font-size:28px;
+      font-weight:950;
+      margin-bottom:15px;
+    }
+
+    .footer-copy {
+      max-width:540px;
+      color:#64748b;
+      font-size:14px;
+    }
+
+    .footer-info-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px 24px;
+    }
+
+    .footer-info-grid p {
+      font-size:13px;
+      color:#94a3b8;
+    }
+
+    .footer-info-grid strong { color:#e2e8f0; }
+
+    .copyright {
+      padding-top:26px;
+      border-top:1px solid rgba(255,255,255,.07);
+      font-size:12px;
+      color:#475569;
+      text-align:center;
+    }
+
+    /* Reveal */
+    .reveal {
+      opacity:0;
+      transform:translateY(26px);
+      transition:opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.show {
+      opacity:1;
+      transform:none;
+    }
+
+    /* Animations */
+    @keyframes float {
+      0%,100% { transform:translate3d(0,0,0) rotate(0); }
+      50% { transform:translate3d(0,-22px,0) rotate(8deg); }
+    }
+
+    @keyframes floatPanel {
+      0%,100% { transform:translateY(0) rotate(.2deg); }
+      50% { transform:translateY(-12px) rotate(-.4deg); }
+    }
+
+    @keyframes badgeBob {
+      0%,100% { transform:rotate(4deg) translateY(0); }
+      50% { transform:rotate(1deg) translateY(-8px); }
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity:.65; transform:scale(1); }
+      50% { opacity:1; transform:scale(1.35); }
+    }
+
+    @keyframes spinSlow {
+      to { transform:rotate(360deg); }
+    }
+
+    @keyframes gradientMove {
+      0%,100% { background-position:0% 50%; }
+      50% { background-position:100% 50%; }
+    }
+
+    @keyframes shine {
+      0% { transform:translateX(-85%); }
+      55%,100% { transform:translateX(85%); }
+    }
+
+    /* Responsive */
+    @media (max-width:1100px) {
+      .services-grid { grid-template-columns:repeat(2,1fr); }
+      .service-card:last-child { grid-column:1 / -1; min-height:auto; }
+      .stats-strip { grid-template-columns:repeat(2,1fr); }
+    }
+
+    @media (max-width:900px) {
+      .hero { min-height:auto; padding-top:125px; }
+      .hero-grid,
+      .recruiting-grid,
+      .proof-grid,
+      .footer-top {
+        grid-template-columns:1fr;
+      }
+      .hero-panel { min-height:390px; }
+      .recruiting-wrap { padding:34px; }
+      .nav-link { display:none; }
+    }
+
+    @media (max-width:640px) {
+      .container { width:min(100% - 28px, 1180px); }
+      .site-header { padding:12px 0; }
+      .brand-copy span { display:none; }
+      .brand-mark { width:40px;height:40px;border-radius:12px; }
+      .nav-cta { padding:10px 14px; font-size:12px; }
+
+      .hero {
+        padding:112px 0 92px;
+      }
+
+      .hero h1 {
+        font-size:42px;
+        letter-spacing:-1.6px;
+      }
+
+      .hero-copy > p { font-size:16px; }
+      .hero-panel { min-height:370px; }
+      .process-card { inset:20px 0 20px 0; padding:20px; }
+      .floating-badge { right:4px; }
+
+      .recruiting-shell { margin-top:-48px; }
+      .recruiting-wrap { padding:24px 16px; border-radius:24px; }
+      .feature-card { padding:24px 20px; }
+
+      section.content-section { padding:76px 0; }
+      .section-head { margin-bottom:32px; }
+
+      .stats-strip { grid-template-columns:1fr 1fr; }
+      .stat { padding:20px; }
+      .stat .num { font-size:28px; }
+
+      .services-grid { grid-template-columns:1fr; }
+      .service-card:last-child { grid-column:auto; }
+      .service-card { min-height:220px; }
+
+      .cta-box { padding:38px 24px; border-radius:24px; }
+
+      .footer-info-grid { grid-template-columns:1fr; }
+
+      .hero-actions {
+        flex-direction:column;
+        align-items:stretch;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
-
-    <!-- 헤더 -->
-    <header>
-        <div class="container">
-            <div class="logo-wrapper">
-                <div class="logo">JVK</div>
-                <div class="logo-subtext">Job and Visa Korea</div>
-            </div>
-            <!-- 추가된 우측 링크 버튼 -->
-            <div class="header-link">
-                <a href="https://jobandvisakorea.com/" target="_blank">JVK 사이트 방문하기</a>
-            </div>
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="JVK 홈">
+        <div class="brand-mark">JVK</div>
+        <div class="brand-copy">
+          <strong>JVK</strong>
+          <span>Job and Visa Korea</span>
         </div>
-    </header>
+      </a>
 
-    <!-- 메인 히어로 섹션 -->
+      <div class="nav-actions">
+        <a class="nav-link" href="#recruiting">리크루팅</a>
+        <a class="nav-link" href="#performance">실적</a>
+        <a class="nav-link" href="#services">서비스</a>
+        <a class="nav-cta" href="https://jobandvisakorea.com/" target="_blank" rel="noopener">JVK 사이트 방문하기</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
     <section class="hero">
-        <div class="container">
-            <h1>외국인 리크루팅 대행 원스톱 솔루션 소개</h1>
-            <p>기업의 노무 관리 비용을 낮추고 생산성을 높이는 HR BPO 전문 기업입니다.</p>
+      <div class="orb one"></div>
+      <div class="orb two"></div>
+      <div class="orb three"></div>
+      <div class="hero-glow"></div>
+
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">Recruiting · Visa · Onboarding</div>
+          <h1>
+            외국인 채용의 복잡함을
+            <span class="gradient-text">하나의 흐름으로.</span>
+          </h1>
+          <p>
+            외국인 인력이 필요하신가요?<br>
+            복잡한 채용 과정은 줄이고, 필요한 인재를 빠르게 만나보세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="hero-cta primary" href="#recruiting">원스톱 솔루션 보기 →</a>
+            <a class="hero-cta secondary" href="https://jobandvisakorea.com/" target="_blank" rel="noopener">JVK 공식 사이트 ↗</a>
+          </div>
         </div>
+
+        <div class="hero-panel reveal">
+          <div class="glass-card process-card">
+            <div class="mini-kicker">One-stop process</div>
+            <h3>채용부터 사후관리까지</h3>
+            <div class="process-flow">
+              <div class="process-row">
+                <div class="process-num">01</div>
+                <div class="process-label">리크루팅 대행 협의</div>
+                <div class="process-arrow">→</div>
+              </div>
+              <div class="process-row">
+                <div class="process-num">02</div>
+                <div class="process-label">인재 매칭 및 이력서 검토</div>
+                <div class="process-arrow">→</div>
+              </div>
+              <div class="process-row">
+                <div class="process-num">03</div>
+                <div class="process-label">면접 · 합격 · 출근 케어</div>
+                <div class="process-arrow">→</div>
+              </div>
+              <div class="process-row">
+                <div class="process-num">04</div>
+                <div class="process-label">대행수수료 정산</div>
+                <div class="process-arrow">→</div>
+              </div>
+              <div class="process-row">
+                <div class="process-num">05</div>
+                <div class="process-label">사후관리 및 파트너십</div>
+                <div class="process-arrow">✓</div>
+              </div>
+            </div>
+          </div>
+          <div class="floating-badge"><span>●</span>J V K · B2B HR SOLUTION</div>
+        </div>
+      </div>
     </section>
 
-    <!-- 리크루팅 원스톱 솔루션 하이라이트 -->
-    <div class="container" style="padding: 0;">
-        <div class="highlight-section" id="recruiting">
+    <div class="recruiting-shell" id="recruiting">
+      <div class="container">
+        <div class="recruiting-wrap reveal">
+          <div class="section-head">
+            <span class="section-kicker">Recruiting Solution</span>
             <h2>외국인 리크루팅 대행 원스톱 솔루션</h2>
-            <p class="subtitle">우수한 외국인 인재 발굴부터 현장 적응(온보딩)까지 완벽하게 지원합니다.</p>
-            
-            <div class="recruiting-grid">
-                <!-- 서비스 소개 -->
-                <div class="recruiting-card">
-                    <h3>💡 서비스 주요 내용</h3>
-                    <ul class="check-list">
-                        <li>
-                            <strong>인재 매칭 및 이력서 제공</strong>
-                            외국인 이력서 검토 후 기업 맞춤형 우수 인재 매칭
-                        </li>
-                        <li>
-                            <strong>면접 통합 관리</strong>
-                            온·오프라인 면접 일정 조율, 인터뷰 가이드 제공 및 면접 당일 진행 케어
-                        </li>
-                        <li>
-                            <strong>합격자 출근 완료 케어</strong>
-                            최종 합격자 계약 조건 확정, 출근 동선 안내 및 초기 현장 적응(온보딩) 완벽 지원
-                        </li>
-                        <li>
-                            <strong>채용확정시 부담없는 리크루팅 대행 수수료 정산</strong>
-                            채용후 1개월 이내 이탈시 무상 재매칭
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- 추진 절차 -->
-                <div class="recruiting-card orange-top">
-                    <h3>🚀 추진 절차</h3>
-                    <div class="step-container">
-                        <div class="step-item">
-                            <div class="step-badge">Step 1</div>
-                            <div class="step-content">타깃 기업 리스트업 & 사전 분석</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-badge">Step 2</div>
-                            <div class="step-content">리크루팅 제안 및 협상 (사이트 현황 지표 피칭)</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-badge">Step 3</div>
-                            <div class="step-content">리크루팅 대행 계약 체결</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-badge">Step 4</div>
-                            <div class="step-content">인재 매칭 및 이력서 검토</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-badge">Step 5</div>
-                            <div class="step-content">면접/합격 및 출근 완료 케어</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-badge">Step 6</div>
-                            <div class="step-content">수수료 정산 및 계약 승인</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-badge">Step 7</div>
-                            <div class="step-content">사후 관리 및 지속적 파트너십</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <p>우수한 외국인 인재 발굴부터 현장 적응(온보딩)까지 완벽하게 지원합니다.</p>
+          </div>
+
+          <div class="recruiting-grid">
+            <article class="feature-card">
+              <h3><span class="feature-icon">✓</span> 서비스 주요 내용</h3>
+              <ul class="check-list">
+                <li>
+                  <span class="dot">✓</span>
+                  <div>
+                    <strong>인재 매칭 및 이력서 제공</strong>
+                    기업의 채용 조건에 맞는 외국인 구직자를 선별해 이력서를 제공합니다.
+                  </div>
+                </li>
+                <li>
+                  <span class="dot">✓</span>
+                  <div>
+                    <strong>면접 통합 관리</strong>
+                    온·오프라인 면접 일정 조율부터, 면접 완료까지 지원합니다.
+                  </div>
+                </li>
+                <li>
+                  <span class="dot">✓</span>
+                  <div>
+                    <strong>합격자 출근 케어</strong>
+                    근로조건 확인, 출근 안내부터 초기 현장 적응까지 지원합니다.
+                  </div>
+                </li>
+                <li>
+                  <span class="dot">✓</span>
+                  <div>
+                    <strong>채용 확정 후 수수료 정산</strong>
+                    채용이 확정된 경우에만 수수료가 발생합니다.<br>
+                    채용 후 1개월 이내 이탈 시 무상 재매칭해드립니다.
+                  </div>
+                </li>
+              </ul>
+            </article>
+
+            <article class="feature-card orange">
+              <h3><span class="feature-icon">→</span> 추진 절차</h3>
+              <div class="steps">
+                <div class="step-item"><span class="step-badge">STEP 1</span><span class="step-content">리크루팅 대행 협의</span><span class="step-end">→</span></div>
+                <div class="step-item"><span class="step-badge">STEP 2</span><span class="step-content">인재 매칭 및 이력서 검토</span><span class="step-end">→</span></div>
+                <div class="step-item"><span class="step-badge">STEP 3</span><span class="step-content">면접/합격 및 출근 완료 케어</span><span class="step-end">→</span></div>
+                <div class="step-item"><span class="step-badge">STEP 4</span><span class="step-content">대행수수료 정산</span><span class="step-end">→</span></div>
+                <div class="step-item"><span class="step-badge">STEP 5</span><span class="step-content">사후 관리 및 지속적 파트너십</span><span class="step-end">✓</span></div>
+              </div>
+            </article>
+          </div>
         </div>
+      </div>
     </div>
 
-    <!-- 기업 실적 및 고객사 -->
-    <section id="performance" class="container" style="padding-top: 20px;">
-        <h2>주요 실적 및 고객사</h2>
-        <div class="grid-2">
-            <!-- 고객사 및 관리 규모 -->
-            <div class="card">
-                <h3>🤝 주요 파트너십</h3>
-                <div class="advantage-item"><strong>주요 기업 고객:</strong> HD현대중공업, HD현대미포, 현대삼호중공업 등</div>
-                <div class="advantage-item"><strong>정부 및 기관:</strong> 울산광역시 동구, 한국뿌리산업진흥협회</div>
-                <h3 style="margin-top: 30px; font-size: 20px;">👥 인프라 및 관리 규모</h3>
-                <div class="advantage-item"><strong>관리 외국인 인력:</strong> 약 15,000명 (2024년 10월 기준)</div>
-                <div class="advantage-item"><strong>전문가 보유:</strong> 다국어 전문 통번역사 및 커리어 매니저 55명 운영</div>
-            </div>
-            
-            <!-- 서비스 실적 -->
-            <div class="card">
-                <h3>📈 부문별 서비스 실적</h3>
-                <div class="timeline-item"><strong>정착·생활 지원:</strong> 민원 상담 8,000건 이상, 금융/통신 사무지원 약 7,800건, 지역문화행사 2만 명 이상 동원</div>
-                <div class="timeline-item"><strong>HR 행정 지원:</strong> 법무부 출입국 행정지원 20,000건 이상, 대사관 및 공단 지원 3,000건 이상</div>
-                <div class="timeline-item"><strong>전문 통번역 지원:</strong> 안전/교육 자료 번역 48,393장, 현장 밀착 지원 25,725시간 달성</div>
-                <div class="timeline-item"><strong>맞춤 교육 성과:</strong> 교육 이수 누계 약 2,000명, 사회통합프로그램(사전평가 2단계 이상) 합격률 98%</div>
-            </div>
+    <section class="content-section performance" id="performance">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Track Record</span>
+          <h2>주요 실적 및 고객사</h2>
+          <p>기업 고객, 공공기관, 현장 운영 데이터를 기반으로 외국인 인력관리 서비스를 제공합니다.</p>
         </div>
+
+        <div class="stats-strip reveal">
+          <div class="stat">
+            <span class="num" data-count="15000">15,000</span>
+            <span class="label">관리 외국인 인력 · 약 명</span>
+          </div>
+          <div class="stat">
+            <span class="num" data-count="55">55</span>
+            <span class="label">통번역사·커리어 매니저 · 명</span>
+          </div>
+          <div class="stat">
+            <span class="num" data-count="20000">20,000+</span>
+            <span class="label">출입국 행정지원 · 건 이상</span>
+          </div>
+          <div class="stat">
+            <span class="num" data-count="98">98%</span>
+            <span class="label">사회통합프로그램 합격률</span>
+          </div>
+        </div>
+
+        <div class="proof-grid">
+          <article class="proof-card reveal">
+            <h3>주요 파트너십 · 인프라</h3>
+            <div class="proof-list">
+              <div class="proof-item"><strong>주요 기업 고객:</strong> HD현대중공업, HD현대미포, 현대삼호중공업 등</div>
+              <div class="proof-item"><strong>정부 및 기관:</strong> 울산광역시 동구, 한국뿌리산업진흥협회</div>
+              <div class="proof-item"><strong>관리 외국인 인력:</strong> 약 15,000명 (2024년 10월 기준)</div>
+              <div class="proof-item"><strong>전문가 보유:</strong> 다국어 전문 통번역사 및 커리어 매니저 55명 운영</div>
+            </div>
+          </article>
+
+          <article class="proof-card reveal">
+            <h3>부문별 서비스 실적</h3>
+            <div class="proof-list">
+              <div class="proof-item"><strong>정착·생활 지원:</strong> 민원 상담 8,000건 이상, 금융/통신 사무지원 약 7,800건, 지역문화행사 2만 명 이상 동원</div>
+              <div class="proof-item"><strong>HR 행정 지원:</strong> 법무부 출입국 행정지원 20,000건 이상, 대사관 및 공단 지원 3,000건 이상</div>
+              <div class="proof-item"><strong>전문 통번역 지원:</strong> 안전/교육 자료 번역 48,393장, 현장 밀착 지원 25,725시간 달성</div>
+              <div class="proof-item"><strong>맞춤 교육 성과:</strong> 교육 이수 누계 약 2,000명, 사회통합프로그램(사전평가 2단계 이상) 합격률 98%</div>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- 기타 주요 서비스 -->
-    <section id="services" style="background-color: #fff;">
-        <div class="container">
-            <h2>기타 제공 서비스</h2>
-            <div class="grid-3">
-                <div class="service-card">
-                    <h3>정착·생활 지원</h3>
-                    <p>온·오프라인 민원 상담 및 지역사회 적응을 지원하여 안정적인 근로 환경을 조성합니다.</p>
-                </div>
-                <div class="service-card">
-                    <h3>HR 관리 지원</h3>
-                    <p>출입국 행정 사무, 전문 통역·번역, 고충 상담 등 까다로운 노무 행정을 원스톱으로 처리합니다.</p>
-                </div>
-                <div class="service-card">
-                    <h3>외국인 맞춤 교육</h3>
-                    <p>기초/직무(용접, 도장 등) 한국어 교육 및 필수 법정의무교육을 자체 커리큘럼으로 제공합니다.</p>
-                </div>
-                <div class="service-card">
-                    <h3>자체 통합 IT 시스템</h3>
-                    <p>인력 관리 전용 ERP(HRS-ERP) 및 현장 소통에 특화된 통번역 앱 '워크메이트'를 지원합니다.</p>
-                </div>
-                <div class="service-card">
-                    <h3>외국인 전용 콜센터</h3>
-                    <p>'이음(EUM)' 센터를 통해 생활 민원 및 고충을 다국어로 실시간 청취하고 해결합니다.</p>
-                </div>
-            </div>
+    <section class="content-section" id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Beyond Recruiting</span>
+          <h2>기타 제공 서비스</h2>
+          <p>채용 이후에도 현장 운영, 행정, 교육, 소통까지 연결되는 통합 지원 체계를 제공합니다.</p>
         </div>
+
+        <div class="services-grid">
+          <article class="service-card reveal">
+            <span class="service-index">01 · SETTLEMENT</span>
+            <h3>정착·생활 지원</h3>
+            <p>온·오프라인 민원 상담 및 지역사회 적응을 지원하여 안정적인 근로 환경을 조성합니다.</p>
+          </article>
+
+          <article class="service-card reveal">
+            <span class="service-index">02 · HR SUPPORT</span>
+            <h3>HR 관리 지원</h3>
+            <p>출입국 행정 사무, 전문 통역·번역, 고충 상담 등 까다로운 노무 행정을 원스톱으로 처리합니다.</p>
+          </article>
+
+          <article class="service-card reveal">
+            <span class="service-index">03 · EDUCATION</span>
+            <h3>외국인 맞춤 교육</h3>
+            <p>기초/직무(용접, 도장 등) 한국어 교육 및 필수 법정의무교육을 자체 커리큘럼으로 제공합니다.</p>
+          </article>
+
+          <article class="service-card reveal">
+            <span class="service-index">04 · HR TECH</span>
+            <h3>자체 통합 IT 시스템</h3>
+            <p>인력 관리 전용 ERP(HRS-ERP) 및 현장 소통에 특화된 통번역 앱 '워크메이트'를 지원합니다.</p>
+          </article>
+
+          <article class="service-card reveal">
+            <span class="service-index">05 · GCC</span>
+            <h3>외국인 전용 콜센터(GCC)</h3>
+            <p>'Global Contact Center'를 통해 생활 민원 및 고충을 다국어로 실시간 청취하고 해결합니다.</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- 푸터 / 사업자 정보 -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-info">
-                    <p><strong>법인명:</strong> 주식회사 에이치알스탠다드</p>
-                    <p><strong>대표자:</strong> 최정환</p>
-                    <p><strong>개업연월일:</strong> 2023-04-25</p>
-                    <p><strong>사업장 소재지:</strong> 서울특별시 종로구 종로 1, 15층(종로1가)</p>
-                </div>
-                <div class="footer-info">
-                    <p><strong>사업자등록번호:</strong> 361-86-03041</p>
-                    <p><strong>법인등록번호:</strong> 110111-8618063</p>
-                    <p><strong>직업소개업(국내):</strong> 제2026-3000245-14-5-00001호</p>
-                    <p><strong>직업소개업(국외):</strong> 서울청 유 제2026-1호</p>
-                    <p><strong>해외이주알선업:</strong> 제26-07호</p>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 20px; border-top: 1px solid #444; padding-top: 20px;">
-                <p>&copy; 2026 JVK (HR Standard Co., Ltd.) All rights reserved.</p>
-            </div>
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-box reveal">
+          <span class="section-kicker" style="color:#67e8f9;">Start with JVK</span>
+          <h2>외국인 인력 채용이 필요하다면, 채용 과정을 더 단순하게.</h2>
+          <p>인재 매칭부터 면접, 출근, 초기 적응까지 JVK의 원스톱 리크루팅 프로세스를 확인해보세요.</p>
+          <div class="hero-actions">
+            <a class="hero-cta primary" href="https://jobandvisakorea.com/" target="_blank" rel="noopener">JVK 사이트 방문하기 ↗</a>
+            <a class="hero-cta secondary" href="#top">맨 위로 ↑</a>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
+  </main>
 
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">JVK · Job and Visa Korea</div>
+          <p class="footer-copy">
+            외국인 리크루팅, 출입국 행정, 통번역, 현장 적응과 교육까지 기업의 외국인 인력 운영을 통합 지원합니다.
+          </p>
+        </div>
+
+        <div class="footer-info-grid">
+          <p><strong>법인명:</strong> 주식회사 에이치알스탠다드</p>
+          <p><strong>대표자:</strong> 최정환</p>
+          <p><strong>개업연월일:</strong> 2023-04-25</p>
+          <p><strong>사업장 소재지:</strong> 서울특별시 종로구 종로 1, 15층(종로1가)</p>
+          <p><strong>사업자등록번호:</strong> 361-86-03041</p>
+          <p><strong>법인등록번호:</strong> 110111-8618063</p>
+          <p><strong>직업소개업(국내):</strong> 제2026-3000245-14-5-00001호</p>
+          <p><strong>직업소개업(국외):</strong> 서울청 유 제2026-1호</p>
+          <p><strong>해외이주알선업:</strong> 제26-07호</p>
+        </div>
+      </div>
+
+      <div class="copyright">
+        © 2026 JVK (HR Standard Co., Ltd.) All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('siteHeader');
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 16);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive:true });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = `${Math.min(i % 5, 4) * 70}ms`;
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
